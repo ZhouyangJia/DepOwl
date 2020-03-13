@@ -33,9 +33,9 @@ If the script fails, please manually  compile the libraries with debug symbol, a
 
 ### Detect incompatible library changes
 DepOwl uses [*abi-tracker*](https://github.com/lvc/abi-tracker)
-to detect incompatible library changes. A convinent method to install the tool is to use the [installer] (https://github.com/lvc/installer) provided by the 
+to detect incompatible library changes. A convinent method to install the tool is to use the [installer](https://github.com/lvc/installer) provided by the 
 *abi-tracker* developers.
-Moreover, *abi-tracker* requires [Universal Ctags] (https://github.com/universal-ctags/ctags).
+Moreover, *abi-tracker* requires [Universal Ctags](https://github.com/universal-ctags/ctags).
 As *abi-tracker* reports results in webpages, it is a bit hard to parse the results. Thus, we change the output format into *xml*:
 
 ```
@@ -95,7 +95,7 @@ python py/download_source.py
 
 This command will generate the directory **sources/**, which contains the source code for each package.
 
-Then, DepOwl analyze the source code by using [*srcML*] (https://www.srcml.org/):
+Then, DepOwl analyze the source code by using [*srcML*](https://www.srcml.org/):
 
 ```
 python py/src2srcml.py
