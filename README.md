@@ -1,15 +1,15 @@
-#DepOwl
+# DepOwl
 
 A practical tool helping users prevent compatibility failures.
 
 ---
 
-##HOWTO
+## HOWTO
 
-###Prepare libraries
+### Prepare libraries
 The directory **library/** provides an example of how to organize the libraries, including *zlib* and *glib* (used in the motivating examples in the paper).
 
-###Generate *json* files
+### Generate *json* files
 We need to generate *json* files to specify the available versions of the libraries. 
 The files are further required by *abi-tracker* to perform backward incompatibility checking.
 
@@ -21,7 +21,7 @@ python py/generate_json.py -l glib
 The step will generate the directory **json/**, where each library has two *json* files, e.g., *zlib-asc.json* and *zlib-desc.json* for *zlib*. The two *json* files include the versions in an ascending and descending orders, respectively.
 
 
-###Build libraries
+### Build libraries
 DepOwl provides a script to compile history versions of the libraries. 
 This script successfully compiles the libraries in Ubuntu 18.04 with gcc-5.5.
 
@@ -31,7 +31,7 @@ python py/build_lib.py -l glib
 ```
 If the script fails, please manually  compile the libraries with debug symbol, and install the binaries in the directory **build/library/version** (e.g. build/zlib/1.2.5.1).
 
-###Detect incompatible library changes
+### Detect incompatible library changes
 DepOwl uses [*abi-tracker*](https://github.com/lvc/abi-tracker)
 to detect incompatible library changes. A convinent method to install the tool is to use the [installer] (https://github.com/lvc/installer) provided by the 
 *abi-tracker* developers.
@@ -67,7 +67,7 @@ python py/extract_report.py
 
 This command will generate the excel file *symbols.xlsx*, which contains the interested library changes required by DepOwl.
 
-###Detect potential depbugs (the filtering phase in the paper)
+### Detect potential depbugs (the filtering phase in the paper)
 
 In this step, DepOwl selects all packages (from the given repository) that may potentially be affected by the above library changes.
 
@@ -85,7 +85,7 @@ The above command works on a test repository. Make the following change to run o
 +++ py/match_pkg.py:159    for pkg_file_name in glob.glob('repository/ubuntu-19.10/*.txt'):
 ```
 
-###Confirm depbugs (the determining phase in the paper)
+### Confirm depbugs (the determining phase in the paper)
 
 In this phase, DepOwl requires the source code to determine depbugs. Thus, we need to get the source code:
 
@@ -129,4 +129,4 @@ homebank    5.2.2-1     libglib2.0  >= 2.37.3   2.39.1
 mathgl      2.4.4-4     zlib1g      >= 1:1.2.0  1.2.5.2   
 ```
 
-###That's it, have fun.
+### That's it, have fun.
