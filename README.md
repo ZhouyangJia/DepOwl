@@ -67,7 +67,7 @@ python py/extract_report.py
 
 This command will generate the excel file *symbols.xlsx*, which contains the interested library changes required by DepOwl.
 
-### Detect potential depbugs (the filtering phase in the paper)
+### Detect potential depbugs (the filtering phase)
 
 In this step, DepOwl selects all packages (from the given repository) that may potentially be affected by the above library changes.
 
@@ -78,16 +78,32 @@ python py/match_pkg.py
 This step will generate the directory **packages/**, which contains the packages (downloaded by DepOwl) that are depended on the libraries (e.g., *zlib* or *glib*).
 Also, DepOwl outputs the database file *depbug.db*, which contains the potential depbugs (in the table *potential_depbug*). 
 
-The above command works on a test repository. Make the following change to run on the real-word repository shipped with ubuntu-19.10 (it may takes a long time to download the packages):
+The above command works on a test repository. Make the following change to run on the real-word repository shipped with ubuntu-19.10 (unzip repository/ubuntu-19.10.zip first, it may takes a long time to download the packages):
 
 ```
 --- py/match_pkg.py:159    for pkg_file_name in glob.glob('repository/test/*.txt'):
 +++ py/match_pkg.py:159    for pkg_file_name in glob.glob('repository/ubuntu-19.10/*.txt'):
 ```
 
-### Confirm depbugs (the determining phase in the paper)
+### Confirm depbugs (the determining phase)
 
-In this phase, DepOwl requires the source code to determine depbugs. Thus, we need to get the source code:
+When analyzing application binaries (with debug symbols), extract API usages:
+
+```
+cd src
+
+//Step 1: install clang, and compile the target file test.c
+sudo apt install clang-9 llvm-9
+clang-9 -S -emit-llvm -g -O -Xclang -femit-debug-entry-values -o test.ll test.c
+llc-9 test.ll -o test.o -filetype=obj
+
+//Step 2: install libdwarf, compile, and run the program
+sudo apt install libdwarf-dev
+gcc get_decl.c -ldwarf -o get_decl
+./get_decl test.o
+```
+
+When taking source code as input, we need to get the source code:
 
 ```
 python py/download_source.py

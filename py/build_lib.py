@@ -50,7 +50,7 @@ def get_config_cmd(build_system, root_path, build_path):
 			config_cmd+= root_path + '/' + build_path + ' >/dev/null 2>&1'
 		elif lib_name == 'mpc':
 			config_cmd = "CFLAGS='-g -Og' ./configure \
-			--with-mpfr=/home/zhouyang/Desktop/specbug/build/mpfr/3.1.6"
+			--with-mpfr=~/Desktop/specbug/build/mpfr/3.1.6"
 			config_cmd+= " --prefix="
 			config_cmd+= root_path + '/' + build_path + ' >/dev/null 2>&1'
 		elif lib_name == 'cairo':
